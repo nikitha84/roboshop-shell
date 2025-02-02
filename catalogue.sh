@@ -39,7 +39,7 @@ VALIDATE $? "Installing  nodejs"
 useradd roboshop &>> $LOGFILE
 VALIDATE $? "Creating Roboshop user"
 
-mkdir /app &>> $LOGFILE
+mkdir -p /app &>> $LOGFILE
 VALIDATE $? "Creating app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
@@ -47,7 +47,7 @@ VALIDATE $? "Downloading catalogue file"
 
 cd /app 
 
-unzip /tmp/catalogue.zip &>> $LOGFILE
+unzip -o /tmp/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Unziping catalogue file"
 
 npm install &>> $LOGFILE
