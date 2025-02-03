@@ -43,33 +43,33 @@ then
     VALIDATE $? "roboshop user creation"
 else
     echo -e "roboshop user already exist $Y SKIPPING $N"
-fi        
+fi 
 
 mkdir -p /app &>> $LOGFILE
 VALIDATE $? "Creating app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
-VALIDATE $? "Downloading catalogue file"
+curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip $LOGFILE
+VALIDATE $? "downloading user file"
 
 cd /app 
 
-unzip -o /tmp/catalogue.zip &>> $LOGFILE
-VALIDATE $? "Unziping catalogue file"
+unzip -o /tmp/user.zip $LOGFILE
+VALIDATE $? "unziping user file"
 
-npm install &>> $LOGFILE
-VALIDATE $? "Installing depencies"
+npm install $LOGFILE
+VALIDATE $? "Installing dependencies"
 
-cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
-VALIDATE $? "copied cataloggue service file"
+cp /home/centos/roboshop-shell/user.service /etc/systemd/system/user.service &>> $LOGFILE
+VALIDATE $? "coping user service file"
 
 systemctl daemon-reload &>> $LOGFILE
-VALIDATE $? "catlogue daemon reload"
+VALIDATE $? "user daemon reload"
 
-systemctl enable catalogue &>> $LOGFILE
-VALIDATE $? "Enabling catlogue"
+systemctl enable user &>> $LOGFILE
+VALIDATE $? "Enabling user"
  
-systemctl start catalogue &>> $LOGFILE
-VALIDATE $? "Start catlogue"
+systemctl start user &>> $LOGFILE
+VALIDATE $? "Start user"
 
 cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 VALIDATE $? "copied mongo.repo"
@@ -77,5 +77,5 @@ VALIDATE $? "copied mongo.repo"
 dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "Installing mongodb client"
 
-mongo --host 172.31.84.80 </app/schema/catalogue.js &>> $LOGFILE
+mongo --host 172.31.89.12 </app/schema/user.js &>> $LOGFILE
 VALIDATE $? "Loading data into mongodb"
