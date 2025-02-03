@@ -27,20 +27,20 @@ else
     echo "you are root user"
 fi
 
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y  &>> $LOGFILE
-VALIDATE $? "Installing remi relese"
+dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> $LOGFILE
+VALIDATE $? "Installing redis remis"
 
 dnf module enable redis:remi-6.2 -y &>> $LOGFILE
-VALIDATE $? "Enabling remi relese"
+VALIDATE $? "Enabling redis"
 
 dnf install redis -y &>> $LOGFILE
 VALIDATE $? "Installing redis"
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf &>> $LOGFILE
-VALIDATE $? "Allowing remote access"
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf &>> $LOGFILE
+VALIDATE $? "alowing remote access"
 
 systemctl enable redis &>> $LOGFILE
-VALIDATE $? "Enabling redis"
+VALIDATE $? "enabling redis"
 
 systemctl start redis &>> $LOGFILE
-VALIDATE $? "Start redis"
+VALIDATE $? "start redis"
