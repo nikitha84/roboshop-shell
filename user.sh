@@ -59,7 +59,7 @@ VALIDATE $? "Unzing user file"
 npm install &>> $LOGFILE
 VALIDATE $? "Instaling dependencies"
 
-cp /hopme/centos/roboshop-shell/user.service /etc/systemd/system/user.service &>> $LOGFILE
+cp /home/centos/roboshop-shell/user.service /etc/systemd/system/user.service &>> $LOGFILE
 VALIDATE $? "copied user service file"
 
 systemctl daemon-reload &>> $LOGFILE
