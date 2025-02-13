@@ -77,7 +77,7 @@ VALIDATE $? "copied mongodb repo"
 dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "Installing mongodb client"
 
-mongosh --host 172.31.84.202 </app/schema/user.js &>> $LOGFILE
+mongosh --host 172.31.35.86 </app/schema/user.js &>> $LOGFILE
 VALIDATE $? "loading data into mongodb"
 
 
