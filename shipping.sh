@@ -41,27 +41,39 @@ fi
 mkdir -p /app &>> $LOGFILE
 VALIDATE $? "Creating app directory"
 
-curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip
+curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip &>> $LOGFILE
+VALIDATE $? "downloading shipping"
 
-unzip /tmp/shipping.zip
+cd /app &>> $LOGFILE
+VALIDATE $? "moving into app directoey"
 
-cd /app
+unzip /tmp/shipping.zip &>> $LOGFILE
+VALIDATE $? "unziping shipping file"
 
-mvn clean package
+mvn clean package &>> $LOGFILE
+VALIDATE $? "installing dependices"
 
-mv target/shipping-1.0.jar shipping.jar
+mv target/shipping-1.0.jar shipping.jar &>> $LOGFILE
+VALIDATE $? "renaming jar files"
 
-cp /home/centos/roboshop-shell/shipping.service /etc/systemd/system/shipping.service
+cp /home/centos/roboshop-shell/shipping.service /etc/systemd/system/shipping.service &>> $LOGFILE
+VALIDATE $? "copied shipping service file"
 
-systemctl daemon-reload
+systemctl daemon-reload &>> $LOGFILE
+VALIDATE $? "deamon reload"
 
-systemctl enable shipping 
+systemctl enable shipping &>> $LOGFILE
+VALIDATE $? "enabling"
 
-systemctl start shipping
+systemctl start shipping &>> $LOGFILE
+VALIDATE $? "starting"
 
-dnf install mysql -y
+dnf install mysql -y &>> $LOGFILE
+VALIDATE $? "installing mysql client"
 
-mysql -h 172.31.38.62 -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+mysql -h 172.31.38.62 -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE 
+VALIDATE $? "loading shipping date into mysql"
 
-systemctl restart shipping
+systemctl restart shipping &>> $LOGFILE
+VALIDATE $? "restarting shipping"
 
