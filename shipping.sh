@@ -71,7 +71,7 @@ VALIDATE $? "starting"
 dnf install mysql -y &>> $LOGFILE
 VALIDATE $? "installing mysql client"
 
-mysql -h 172.31.38.62 -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE 
+mysql -h 172.31.37.22 -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE 
 VALIDATE $? "loading shipping date into mysql"
 
 systemctl restart shipping &>> $LOGFILE
