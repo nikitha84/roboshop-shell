@@ -48,7 +48,7 @@ VALIDATE $? "downloading payment file"
 cd /app &>> $LOGFILE
 
 unzip /tmp/payment.zip &>> $LOGFILE
-VALIDATE $? "Unzing user file"
+VALIDATE $? "Unzing payment file"
 
 pip3.6 install -r requirements.txt &>> $LOGFILE
 VALIDATE $? "installing dependencis"
