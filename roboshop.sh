@@ -13,7 +13,7 @@ do
         INSTANCES_TYPE="t2.micro"
     fi
 
-    IP_ADDRESS=$(aws ec2 run-instances --image-id ami-0b4f379183e5706b9 --instance-type $INSTANCES_TYPE --security-group-ids sg-0af62f102bd40722d
+   aws ec2 run-instances --image-id ami-0b4f379183e5706b9 --instance-type $INSTANCES_TYPE --security-group-ids sg-0af62f102bd40722d
    echo "instance is $i"
 done
 
